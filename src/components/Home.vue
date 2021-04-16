@@ -1,5 +1,5 @@
 <template>
-  <div class="flex w-full h-full justify-between">
+  <div class="flex w-full h-full px-3 justify-between">
     <BigCategoryBox
       v-for="infoPair in infoData"
       :key="`item-${infoPair.title}`"

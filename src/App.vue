@@ -1,14 +1,9 @@
 <template>
   <div class="w-full h-full">
-    <!-- <img alt="Vue logo" src="./assets/logo.png"> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
-    <!-- <ContainerMain/> -->
-    <!-- <HelloWorld/> -->
     <router-view
       class="relative w-full h-full"
       style="min-height: 100vh"
     />
-      <!-- style="min-height: 100vh" -->
   </div>
 </template>
 

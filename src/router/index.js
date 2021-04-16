@@ -7,7 +7,6 @@ import Home from '../components/Home.vue'
 const routes = [
   { 
     path: '/', 
-    name: 'Home',
     component: ContainerMain,
     // beforeEnter: requireAuth
     children: [

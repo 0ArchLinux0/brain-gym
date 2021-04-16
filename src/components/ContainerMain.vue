@@ -1,13 +1,11 @@
 <template>
   <div class="w-full text-white">
     <NavigationBar/>
-    <!-- <div class="w-full h-12 bg-blue-300"/> -->
-    <div class="text-7xl bg-blue-600 mb-6">Brain Training</div>
+    <!-- style="color:#a2ebf6"-->
+    <div class="text-6xl mb-6 text-black">Training Center</div>
 
-    
-    
     <router-view/>
-   
+
   </div>
 </template>
 
