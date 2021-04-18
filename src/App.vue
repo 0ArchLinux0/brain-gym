@@ -4,24 +4,33 @@
     <router-view
       :mobile="mobile"
     />
+    <FooterComp
+      class="absolute b-0"    
+    />
   </div>
   <div v-else class="relative w-full h-full overflow-hidden" style="max-height:100vh; min-width:100vw;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
     />
-  </div>
+    <FooterComp
+      class="fixed"    
+      style="bottom: 0px"
+    />
+  </div>  
 </template>
 
 <script>
 // import HelloWorld from './components/HelloWorld.vue'
 // import ContainerMain from './components/ContainerMain.vue'
+import FooterComp from './components/FooterComp.vue'
 
 export default {
   name: 'App',
   components: {
     // HelloWorld,
     // ContainerMain,
+    FooterComp,
   },
   metaInfo: {
     meta: [
@@ -78,6 +87,7 @@ export default {
     /* With local('ZenDots-Regular.ttf') Font doens't work Also with format('ttf')*/
   }
   html,body {
+    position: relative;
     height: 100%;
     background-color: black; 
   }

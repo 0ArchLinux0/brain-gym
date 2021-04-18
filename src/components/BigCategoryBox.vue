@@ -1,17 +1,18 @@
 <template>
   <div class="my-2">
     <div 
-      class="flex flex-col justify-start items-center bg-blue-100 rounded-md pt-5 cursor-pointer overflow-hidden"
+      class="flex flex-col justify-start items-center bg-white rounded-md pt-5 cursor-pointer overflow-hidden hover"
       :style="calcSize"
       @click="pushToRouter"
     >
+    <!--color: blue-100 ?-->
       <img 
         v-if="assetUrl !== undefined"
         :src="assetUrl"
         :style="calcImgSize"
         @error="showDefault(err)"
       />
-      <div class="mt-6 mb-5 text-lg text-black font-semibold sm:text-xl md:text-2xl sm:text-3xl lg:text-4xl "> 
+      <div class="mt-6 mb-5 text-lg font-semibold sm:text-xl md:text-2xl sm:text-3xl lg:text-4xl"> 
         {{title}}
       </div>
       <!-- <div v-for="item in [1,2,3]"
@@ -107,5 +108,11 @@ export default {
   padding: 4px 1rem;
   margin-bottom: 1rem;
   background-color: rgb(226, 43, 83);
+}
+.hover {
+  color: black;
+}
+.hover:hover {
+  color: lightgreen;
 }
 </style>

@@ -117,7 +117,7 @@ export default {
       if(currentTimeStamp - this.timeStamp > this.randTimeUnder5s * 1000) {
         this.colorChangedTimeStamp = currentTimeStamp; 
         this.timeStamp = null;
-        this.bgColor = '#EE1818';
+        this.bgColor = 'white';
         this.randTimeUnder5s = undefined;
         this.userHaveToClick = true;
         console.log('end');
@@ -227,7 +227,7 @@ export default {
         this.reactionTime = new Date() - this.colorChangedTimeStamp;
         this.centerMessage = `${this.reactionTime} ms !`;
         this.bgColor = '#1F618D';
-        this.textColor = 'white'
+        this.textColor = 'black'
         this.notify = 'click again';
         // this.sum += this.reactionTime;
         const temp  = [...this.scoreArr, this.reactionTime];
@@ -243,7 +243,7 @@ export default {
           // this.scoreArr = [];
         } 
       } else {  // start count down
-        this.textColor = 'black'
+        this.textColor = 'white'
         this.onResult = false;
         if (this.randTimeUnder5s) { //When countdown 
           this.centerMessage = 'Too early!';
@@ -260,14 +260,14 @@ export default {
             // this.$refs.card.style['animation-play-state'] = 'running';
             this.$refs.card.classList.value = 'flip0to270';
             this.centerMessage = '';
-            this.instruction = 'Wait for pink';
+            this.instruction = 'Wait for White';
           } else if(!this.init) {
             this.testCount++;
             this.centerMessage = 
             this.startTest();
           } 
         }
-      this.bgColor = '#5DE52A';
+      this.bgColor = 'black';
       }
     }
   },
@@ -304,7 +304,7 @@ export default {
       scoreArr: [],
       scoreAverage: undefined,
       testCount: 1,
-      bgColor: '#5DE52A',
+      bgColor: 'black',
       onResult: false,
       countDownNum1: '',
       userHaveToClick: false,
@@ -317,7 +317,7 @@ export default {
       timeStamp: undefined,
       init: true,
       notify: '',
-      textColor: 'black',
+      textColor: 'white',
       avg: 0,
     };
   },

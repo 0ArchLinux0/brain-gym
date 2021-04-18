@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import ContainerMain from '../components/ContainerMain.vue'
 import ReactionTime from '../components/ReactionTime.vue'
 import Login from '../components/Login.vue'
+import Registration from '../components/Registration.vue'
 import Home from '../components/Home.vue'
 
 const routes = [
@@ -27,6 +28,11 @@ const routes = [
     name: 'Login',
     path: '/login', 
     component: Login,
+  },
+  { 
+    name: 'Register',
+    path: '/register', 
+    component: Registration,
   },
   // { 
   //   path: '/reactiontimetest', 

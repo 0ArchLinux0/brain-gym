@@ -7,7 +7,7 @@
     </div>
     <router-view
      :mobile="mobile"
-  />
+    />
   </div>
 </template>
 
