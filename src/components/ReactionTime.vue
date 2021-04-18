@@ -11,7 +11,7 @@
       @mousedown="userClicked"
     > 
       <!-- style="height: 70vh" -->
-      <div class="absolute left-2 w-full text-lg sm:left-6" style="top:3rem;">
+      <div class="absolute left-2 w-full text-sm sm:left-6" style="top:3rem;">
         <ReactionTimeScoreBoard
           :mobile="mobile"
           :timeRecord="scoreArr"

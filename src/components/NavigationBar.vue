@@ -8,17 +8,24 @@
       >
           <!-- key="back" -->
         <button
-          class="flex ml-2 mb-2 text-base items-center"
+          class="flex ml-2 mb-2 w-1/4 text-base items-center"
           style="margin-top: 5px;"
           @click="toHome"
         >
           <img alt="Home Image" width="27" height="27" class="mr-3" src="@/assets/home.png"/>
           Home
         </button>
-        <span
-          class="text-sm lg:text-sm"
-          >Improve yourself!</span
+        <div
+          class="text-sm lg:text-sm text-center w-1/4"
         >
+          Improve yourself!
+        </div>
+        <button
+          class="text-sm lg:text-base w-1/4 text-right"
+          @click="logIn"
+        >
+          Login
+        </button>
       </div>
     </div>
   </div>
@@ -33,7 +40,13 @@ export default {
         //error : 
         // runtime-core.esm-bundler.js?5c40:217 Uncaught Error: No match for
         // {"name":"Home","params":{}}
-    }
+    },
+    logIn() {
+      console.log('click');
+      // this.$router.go({ path: '/login' });
+      // this.$router.push({ path: '/login' });
+      this.$router.push({ name: 'Login' });
+    },
   }
 }
 </script>

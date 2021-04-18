@@ -1,11 +1,11 @@
 <template>
-  <div v-if="mobile" class="relative w-full h-full bg-blue-200" style="max-height: 100vh;max-width:100vw;" ref="content">
+  <div v-if="mobile" class="relative w-full h-full" style="max-height: 100vh;max-width:100vw;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
     />
   </div>
-  <div v-else class="relative w-full h-full bg-blue-200 overflow-hidden" style="max-height:100vh; min-width:100vw;" ref="content">
+  <div v-else class="relative w-full h-full overflow-hidden" style="max-height:100vh; min-width:100vw;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
@@ -49,8 +49,8 @@ export default {
     const filter = "hp-ux|linux i686|linux armv7l|mac68k|macppc|macintel|sunos|win16|win32|wince";
     console.log(navigator.platform);
     if (navigator.platform) this.mobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
-    // this.mobile = true;
-    console.log(this.mobile);
+    this.mobile = true;
+    // console.log(this.mobile);
     const kakoapiscript = document.createElement('script');
     kakoapiscript.setAttribute('src', 'https://developers.kakao.com/sdk/js/kakao.js');
     kakoapiscript.addEventListener('load', () => {
@@ -79,6 +79,7 @@ export default {
   }
   html,body {
     height: 100%;
+    background-color: black; 
   }
   #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */

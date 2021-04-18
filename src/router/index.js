@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 // import HelloWorld from '../components/HelloWorld.vue'
 import ContainerMain from '../components/ContainerMain.vue'
 import ReactionTime from '../components/ReactionTime.vue'
+import Login from '../components/Login.vue'
 import Home from '../components/Home.vue'
 
 const routes = [
@@ -21,6 +22,11 @@ const routes = [
         component: ReactionTime
       }
     ]
+  },
+  { 
+    name: 'Login',
+    path: '/login', 
+    component: Login,
   },
   // { 
   //   path: '/reactiontimetest', 

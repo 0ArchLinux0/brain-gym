@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full h-full bg-black text-white">
+  <div class="w-full h-full text-white">
     <NavigationBar/>
     <!-- style="color:#a2ebf6"-->
     <div class="text-xl mb-2 pt-4 md:text-6xl md:pt-2 md:pb-5">
@@ -7,7 +7,7 @@
     </div>
     <router-view
      :mobile="mobile"
-    />
+  />
   </div>
 </template>
 
