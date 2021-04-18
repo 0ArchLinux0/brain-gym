@@ -42,9 +42,6 @@ export default {
         // {"name":"Home","params":{}}
     },
     logIn() {
-      console.log('click');
-      // this.$router.go({ path: '/login' });
-      // this.$router.push({ path: '/login' });
       this.$router.push({ name: 'Login' });
     },
   }

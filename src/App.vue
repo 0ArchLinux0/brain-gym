@@ -49,8 +49,8 @@ export default {
     const filter = "hp-ux|linux i686|linux armv7l|mac68k|macppc|macintel|sunos|win16|win32|wince";
     console.log(navigator.platform);
     if (navigator.platform) this.mobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
-    this.mobile = true;
-    // console.log(this.mobile);
+    // this.mobile = true;
+    console.log(this.mobile);
     const kakoapiscript = document.createElement('script');
     kakoapiscript.setAttribute('src', 'https://developers.kakao.com/sdk/js/kakao.js');
     kakoapiscript.addEventListener('load', () => {

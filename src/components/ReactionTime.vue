@@ -218,7 +218,7 @@ export default {
     getAvg(avg) {
       this.avg = avg;
       if(this.onResult) this.centerMessage = `Average reaction time is ${this.avg}`;
-      console.log('Average shoot~~~!: ' + this.avg);
+      // console.log('Average shoot~~~!: ' + this.avg);
     },
     userClicked () {
       console.log("clicked ~~~~");
@@ -302,8 +302,6 @@ export default {
       initTimeStamp: undefined,
       currentTimeStamp: undefined,
       scoreArr: [],
-      // timeoutId: undefined,
-      // kakaoConnectionAttempt: 0,
       scoreAverage: undefined,
       testCount: 1,
       bgColor: '#5DE52A',
@@ -318,7 +316,6 @@ export default {
       randTimeUnder5s: undefined,
       timeStamp: undefined,
       init: true,
-      // sum: 0,
       notify: '',
       textColor: 'black',
       avg: 0,
