@@ -2,6 +2,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 // import HelloWorld from '../components/HelloWorld.vue'
 import ContainerMain from '../components/ContainerMain.vue'
 import ReactionTime from '../components/ReactionTime.vue'
+import NumberMemory from '../components/NumberMemory.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
 import Home from '../components/Home.vue'
@@ -21,7 +22,12 @@ const routes = [
         name: 'ReactionTime',
         path: '/reaction-time',
         component: ReactionTime
-      }
+      },
+      {
+        name: 'NumberMemory',
+        path: '/memory/number',
+        component: NumberMemory
+      },
     ]
   },
   { 

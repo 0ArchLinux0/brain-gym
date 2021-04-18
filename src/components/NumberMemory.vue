@@ -41,25 +41,7 @@
       v-bind:style="{'backgroundColor': bgColor, 'color': textColor}"
       @mousedown="userClicked"
     >
-    <div class="absolute w-1/5 h-full text-lg" style="top:3rem; marginLeft:3rem;">
-      <ReactionTimeScoreBoard
-        :mobile="mobile"
-        :timeRecord="scoreArr"
-        @shoot-avg-val="getAvg"
-      />
-    </div>
-      <div class="absolute w-full" style="top:2rem; font-size:3rem;">{{instruction}}</div>
-      <div class="absolute w-full" style="top:8rem; font-size:2rem;">{{testCount}} / 5</div>
-      <div id="countdownscene" style="font-size:10rem; color:#56ae6e;">
-        <div id="card" ref="card">
-          <div class="card_face face_front">{{countDownNum1}}</div>
-          <div class="card_face face_back">{{countDownNum2}}</div>
-        </div>
-      </div>
-      <div class="relative text-3xl font-semibold"> 
-        {{centerMessage}} 
-        <div class="absolute w-full text-lg font-semibold"> {{notify}} </div>
-      </div>
+        number memery
     </div>
     
     <div v-show="onResult" class="z-100 mt-5 flex justify-center items-center w-full text-lg">

@@ -86,11 +86,11 @@ export default {
       infoData: [
         {
           title: 'Reaction Time',
-          fileName: 'speed'
+          fileName: 'speed.jpeg'
         },
         {
           title: 'Number Memory',
-          fileName: ''
+          fileName: 'maintainance.jpeg'
         },
         {
           title: 'Aim Trainer',

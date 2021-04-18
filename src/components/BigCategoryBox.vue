@@ -64,9 +64,8 @@ export default {
   },
   mounted() {
     this.title = this.titleProp;
-    
     try {
-      this.assetUrl = require(`@/assets/${this.fileName}.jpeg`);
+      this.assetUrl = require(`@/assets/${this.fileName}`);
     } catch(e) {
       // console.log(e);
       this.assetUrl = defaultImage;
