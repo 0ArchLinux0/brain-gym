@@ -8,10 +8,14 @@
       Login view
     </div> -->
     <div @click="goRegisteration" class="buttonbox"> register </div>
-    <div id="inputRapper1" class="w-1/4 h-10 border-2 border-white my-3 flex justify-center items-center">
+    <div 
+      class="w-1/4 h-10 border-2 border-white my-3 flex justify-center items-center"
+      :style="{'border-color': inputRapper1Onfocus ? 'lightgreen' : 'white'}"
+    >
       <input 
         @keypress.enter="moveFocus" 
         @focus="focusTriggered(1)"
+        @focusout="focusTriggered(1)"
         v-model="user_id"
         placeholder="Enter Id"
         type="text"
@@ -19,10 +23,13 @@
         style="spellcheck:false;"
       />
     </div>
-    <div id="inputRapper2" class="w-1/4 h-10 border-2 border-white my-3 flex justify-center items-center">
+    <div 
+      class="w-1/4 h-10 border-2 border-white my-3 flex justify-center items-center"
+      :style="{'border-color': inputRapper2Onfocus ? 'lightgreen' : 'white'}">
       <input 
         @keypress.enter="moveFocus" 
         @focus="focusTriggered(2)"
+        @focusout="focusTriggered(2)"
         v-model="user_pw"
         placeholder="Enter password"
         type="text"
@@ -42,18 +49,32 @@ export default {
     NavigationBar,
   },
   props: {
+    mobile: Boolean,
   },
   computed: {
   },
   methods: {
     focusTriggered(index) {
-      console.log(index);
-    }
+      // console.log(index);
+      console.log('called' + index);
+      // this[`inputRapper${index}Onfocus`] = true;
+      this[`inputRapper${index}Onfocus`] = !this[`inputRapper${index}Onfocus`];
+      // console.log(this.inputRapper1Onfocus);
+      // console.log(this.inputRapper2Onfocus);
+    },
+    login() {
+      console.log(this.user_id + ", " + this.user_pw);
+      // AccountService.
+    },
   },
   mounted() {
   },
   data() {
     return {
+      inputRapper1Onfocus: false,
+      inputRapper2Onfocus: false,
+      user_id: '',
+      user_pw: '',
     };
   },
 }
