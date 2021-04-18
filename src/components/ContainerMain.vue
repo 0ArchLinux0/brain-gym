@@ -1,11 +1,13 @@
 <template>
-  <div class="w-full text-white">
+  <div class="w-full h-full bg-black text-white">
     <NavigationBar/>
     <!-- style="color:#a2ebf6"-->
-    <div class="text-6xl mb-6 text-black">Training Center</div>
-
-    <router-view/>
-
+    <div class="text-xl mb-2 pt-4 md:text-6xl md:pt-2 md:pb-5">
+      Brain Gym
+    </div>
+    <router-view
+     :mobile="mobile"
+    />
   </div>
 </template>
 
@@ -19,12 +21,17 @@ export default {
     // BigCategoryBox,
   },
   props: {
-    msg: String
+    mobile: Boolean,
   }
 }
 </script>
 
+
 <style scoped>
+/* div {
+  font-family: 'ZenDots';
+  text-align: center;
+} */
 h3 {
   margin: 40px 0 0;
 }

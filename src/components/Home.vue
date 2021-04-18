@@ -1,11 +1,23 @@
 <template>
-  <div class="flex w-full h-full px-3 justify-between">
-    <BigCategoryBox
-      v-for="infoPair in infoData"
-      :key="`item-${infoPair.title}`"
-      :titleProp="infoPair.title"
-      :fileName="infoPair.fileName"
-    />
+  <div>
+    <div v-if="mobile" class="flex flex-col px-2 w-full justify-between items-center">
+      <BigCategoryBox
+        v-for="infoPair in infoData"
+        :key="`item-${infoPair.title}`"
+        :calcSize="calcSize"
+        :titleProp="infoPair.title"
+        :fileName="infoPair.fileName"
+      />
+    </div>
+    <div v-else class="flex w-full h-full px-7 justify-between">
+      <BigCategoryBox
+        v-for="infoPair in infoData"
+        :key="`item-${infoPair.title}`"
+        :calcSize="calcSize"
+        :titleProp="infoPair.title"
+        :fileName="infoPair.fileName"
+      />
+    </div>
   </div>
 </template>
 
@@ -19,10 +31,54 @@ export default {
   props: {
     title: String,
     fileName: String,
+    mobile: Boolean,
+  },
+  watch: {
+    calcSize() {
+      console.log("change");
+    }
   },
   computed: {
   },
+  methods: {
+    pcResize() {
+      if(window.innerWidth > 1050) {
+        if(this.calcSize.width!=='300px') 
+          this.calcSize =  { 
+            width: '300px', 
+            height: '250px'
+          };
+      }
+      else this.calcSize = { 
+        width: `${window.innerWidth * 2 / 7}px`,
+        height: `${window.innerWidth * 5 / 21}px` 
+      };
+    },
+    mobileResize() {
+      console.log(window.innerWidth);
+      if(window.innerWidth >  380) {
+        if(this.calcSize.width!=='300px') 
+          this.calcSize =  { 
+            width: '300px', 
+            height: '250px'
+          };
+      }
+      else this.calcSize = { 
+        width: `${window.innerWidth * 6/ 7}px`,
+        height: `${window.innerWidth * 5 / 7}px` 
+      };
+    }
+  },
   mounted() {
+    console.log("mounted");
+    if(this.mobile) {
+      this.callback = this.mobileResize;
+    } else this.callback = this.pcResize;
+    window.addEventListener('resize', ()=>{
+      clearTimeout(this.resizeEventId);
+      this.resizeEventId = setTimeout(this.callback, 400);
+    });
+    this.callback();
   },
   data() {
     return {
@@ -41,9 +97,13 @@ export default {
           fileName: ''
         },
       ],
+      calcSize: { 
+        width: '300px', 
+        height: '250px'
+      },
+      resizeEventId: undefined,
+      callback: undefined,
     };
   },
-  methods: {
-  }
 }
 </script>

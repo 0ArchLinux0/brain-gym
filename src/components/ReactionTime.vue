@@ -1,38 +1,93 @@
 <template>
-  <div 
-    class="relative flex flex-col justify-around w-full cursor-pointer"
-    style="height: 60vh"
-    v-bind:style="{'backgroundColor': bgColor}"
-    @click="userClicked "
-  >
-  <div class="absolute w-1/5 h-full text-lg" style="top: 3rem">
-    <ReactionTimeScoreBoard
-     :timeRecord="scoreArr"
-    />
-  </div>
-    <div class="absolute w-full" style="top:2rem; font-size:3rem;">{{instruction}}</div>
-    <div class="absolute w-full" style="top:8rem; font-size:2rem;">{{testCount}} / 5</div>
-    <div id="countdownscene" style="font-size:10rem; color:#56ae6e;">
-      <div id="card" ref="card">
-        <div class="card_face face_front">{{countDownNum1}}</div>
-        <div class="card_face face_back">{{countDownNum2}}</div>
+  <div class="w-full h-full overflow-hidden">
+    <div
+      v-if="mobile"
+      class="relative w-full h-full flex flex-col justify-around "
+      v-bind:style="{
+        'backgroundColor': bgColor, 
+        'color': textColor, 
+        'height': onResult ? '41%' : '100%'
+      }"
+      @mousedown="userClicked"
+    > 
+      <!-- style="height: 70vh" -->
+      <div class="absolute left-2 w-full text-lg sm:left-6" style="top:3rem;">
+        <ReactionTimeScoreBoard
+          :mobile="mobile"
+          :timeRecord="scoreArr"
+          @shoot-avg-val="getAvg"
+        />
+      </div>
+      <div class="absolute w-full" style="top:2rem; font-size:3rem;">
+        <div style="font-size:1.5rem;" class="sm:text-lg; md:text-xl; lg:text-2xl">{{instruction}}</div>
+        <div style="font-size:2rem">{{testCount}} / 5</div>
+        <div class="relative text-3xl top-4 font-semibold"> 
+          {{centerMessage}} 
+          <div class="w-full text-lg font-semibold">{{notify}}</div>
+        </div>
+      </div>
+      <!-- <div class="absolute w-full" style="top:8rem; font-size:2rem;">{{testCount}} / 5</div> -->
+      <div id="countdownscene" style="font-size:7rem; color:#56ae6e;">
+        <div id="card" ref="card">
+          <div class="card_face face_front">{{countDownNum1}}</div>
+          <div class="card_face face_back">{{countDownNum2}}</div>
+        </div>
       </div>
     </div>
-    <div class="relative text-3xl font-semibold"> 
-      {{centerMessage}} 
-      <div class="absolute w-full text-lg font-semibold"> {{notify}} </div>
+
+    <div v-else
+      class="relative flex flex-col justify-around w-full cursor-pointer"
+      style="height: 60vh"
+      v-bind:style="{'backgroundColor': bgColor, 'color': textColor}"
+      @mousedown="userClicked"
+    >
+    <div class="absolute w-1/5 h-full text-lg" style="top:3rem; marginLeft:3rem;">
+      <ReactionTimeScoreBoard
+        :mobile="mobile"
+        :timeRecord="scoreArr"
+        @shoot-avg-val="getAvg"
+      />
+    </div>
+      <div class="absolute w-full" style="top:2rem; font-size:3rem;">{{instruction}}</div>
+      <div class="absolute w-full" style="top:8rem; font-size:2rem;">{{testCount}} / 5</div>
+      <div id="countdownscene" style="font-size:10rem; color:#56ae6e;">
+        <div id="card" ref="card">
+          <div class="card_face face_front">{{countDownNum1}}</div>
+          <div class="card_face face_back">{{countDownNum2}}</div>
+        </div>
+      </div>
+      <div class="relative text-3xl font-semibold"> 
+        {{centerMessage}} 
+        <div class="absolute w-full text-lg font-semibold"> {{notify}} </div>
+      </div>
+    </div>
+    
+    <div v-show="onResult" class="z-100 mt-5 flex justify-center items-center w-full text-lg">
+      Share your reaction time!
+      <button 
+        id="kakao_share" 
+        class="ml-6 cursor-pointer" 
+        style="width:50px; height:50px;"
+        @click="kakaotalkShare"
+      >
+        <!-- @click="kakaotalkShare" -->
+        <!-- @mouseover="kakaotalkShare" -->
+        <img src="@/assets/kakaotalk_logo-256px.png"/>
+      </button>
     </div>
   </div>
 </template>
 
 <script>
 import ReactionTimeScoreBoard from "@/components/ReactionTimeScoreBoard.vue"
+// import { nextTick } from 'vue'
 export default {
   name: 'ReactionTime',
   components: {
     ReactionTimeScoreBoard,
   },
   props: {
+    mobile: Boolean,
     title: String,
     fileName: String,
   },
@@ -62,36 +117,141 @@ export default {
       if(currentTimeStamp - this.timeStamp > this.randTimeUnder5s * 1000) {
         this.colorChangedTimeStamp = currentTimeStamp; 
         this.timeStamp = null;
-        this.bgColor = '#f5b40f';
+        this.bgColor = '#EE1818';
         this.randTimeUnder5s = undefined;
         this.userHaveToClick = true;
         console.log('end');
       }
       else window.requestAnimationFrame(this.startTest);
     },
+    // shareResult() {
+    //   let param = 'sendurl?msg=' + encodeURIComponent('보낼 메시지');
+    //       param += '&url=' + 'http://dev.epiloum.net';
+    //       param += '&type=link';
+    //       param += '&apiver=2.0.1';
+    //       param += '&appver=2.0';
+    //       param += '&appid=dev.epiloum.net';
+    //       param += '&appname=' + encodeURIComponent('Epiloum 개발노트');
+
+    //   if(navigator.userAgent.match(/android/i))
+    //   {
+    //       setTimeout(function(){
+    //           location.href = 'intent://' + param + '#Intent;package=com.kakao.talk;end';
+    //       }, 100);
+    //   }
+    //   else if(navigator.userAgent.match(/(iphone)|(ipod)|(ipad)/i))
+    //   {
+    //       setTimeout(function(){
+    //           location.href = 'itms-apps://itunes.apple.com/app/id362057947?mt=8';
+    //       }, 200);
+    //       setTimeout(function(){
+    //           location.href = 'kakaolink://' + param;
+    //       }, 100);
+    //   }
+    // },
+    // makeKakaoShareButton() {
+    //   console.log("make kakao share button")
+
+    //   window.Kakao.Link.createCustomButton({
+    //   container: '#kakao_share',
+    //     templateId: 51963,
+    //     templateArgs: {
+    //       // 'title': '제목 영역입니다.',
+    //       // 'description': '설명 영역입니다.',
+    //       'avg': this.avg,
+    //     },
+    //     // avg: this.avg,
+    //     // '${avg}': this.avg,
+    //   });
+    //   return;
+      // window.Kakao.Link.createDefaultButton({
+      //   container: '#kakao_share',
+      //   objectType: 'feed',
+      //   content: {
+      //     title: 'Brain Gym-Reaction Time',
+      //     description: `Reaction time: ${this.avg}!`,
+      //     imageUrl:
+      //       'https://cdn.jsdelivr.net/gh/0ArchLinux0/profileImageForCDN/Brain-Gym.png',
+      //     link: {
+      //       mobileWebUrl: 'https://brain-gym.netlify.app/reaction-time',
+      //       // webURL: 'https://brain-gym.netlify.app/reaction-time'
+      //       // androidExecParams: 'test',
+      //     },
+      //   },
+      //   // social: {
+      //   //   likeCount: 10,
+      //   //   commentCount: 20,
+      //   //   sharedCount: 30,
+      //   // },
+      //   buttons: [
+      //     {
+      //       title: 'Want to challenge!',
+      //       link: {
+      //         mobileWebUrl: 'https://brain-gym.netlify.app/reaction-time',
+      //       },
+      //     },
+      //     // {
+      //     //   title: '앱으로 이동',
+      //     //   link: {
+      //     //     mobileWebUrl: 'https://developers.kakao.com',
+      //     //   },
+      //     // },
+      //   ]
+      // });
+    // },
+    kakaotalkShare() {
+      window.Kakao.Link.sendCustom({
+        templateId: 51963,
+        templateArgs: {
+          'avg': this.avg,
+        },
+      });
+    },
+    // tryConnectionWhenRefreshed() {
+    //   if(!window.Kakao || !window.Kakao.isInitialized()) {
+    //     // clearTimeout(this.timeoutId);
+    //     // this.timeoutId = setTimeout(this.tryConnectionWhenRefreshed, 200);
+    //     // if(this.kakaoConnectionAttempt++==15) return;
+    //   }
+    //   else this.makeKakaoShareButton(); 
+    // },
+    getAvg(avg) {
+      this.avg = avg;
+      if(this.onResult) this.centerMessage = `Average reaction time is ${this.avg}`;
+      console.log('Average shoot~~~!: ' + this.avg);
+    },
     userClicked () {
+      console.log("clicked ~~~~");
+      console.log(this.testCount);
       if(this.userHaveToClick) {  //get time diff 
         this.reactionTime = new Date() - this.colorChangedTimeStamp;
         this.centerMessage = `${this.reactionTime} ms !`;
         this.bgColor = '#1F618D';
+        this.textColor = 'white'
         this.notify = 'click again';
-        this.sum += this.reactionTime;
+        // this.sum += this.reactionTime;
         const temp  = [...this.scoreArr, this.reactionTime];
         this.scoreArr = [...temp];
         this.userHaveToClick = false;
-        if(this.testCount == 5) {
+        if(this.testCount == 5) { //All 5 attempt finished
+          this.onResult = true;
           this.instruction = 'Click to try again';
-          this.centerMessage = `Average reaction time is ${this.sum/5}`;
+          // this.makeKakaoShareButton();
           this.notify = '';
-          this.sum = 0;
+          // nextTick(this.makeKakaoShareButton());
+          // this.sum = 0;
+          // this.scoreArr = [];
         } 
       } else {  // start count down
+        this.textColor = 'black'
+        this.onResult = false;
         if (this.randTimeUnder5s) { //When countdown 
           this.centerMessage = 'Too early!';
           return;
-        } else if(this.countDownNum1 == ''){ //everything end start test againg
+        } else if(this.countDownNum1 == ''){ //execute test for next attempt
           this.notify = '';
           if(this.testCount == 5 || this.init) {
+            this.scoreArr = [];
             console.log('click');
             this.init = false;
             this.testCount = 1;
@@ -100,14 +260,14 @@ export default {
             // this.$refs.card.style['animation-play-state'] = 'running';
             this.$refs.card.classList.value = 'flip0to270';
             this.centerMessage = '';
-            this.instruction = 'Click when color change';
+            this.instruction = 'Wait for pink';
           } else if(!this.init) {
             this.testCount++;
             this.centerMessage = 
             this.startTest();
           } 
         }
-      this.bgColor = '#a2ebf6';
+      this.bgColor = '#5DE52A';
       }
     }
   },
@@ -133,6 +293,8 @@ export default {
       // console.log('Animation ended');
       // this.$refs.card.style['animation-play-state'] = 'paused';
     // });
+    // window.addEventListener('load', this.tryConnectionWhenRefreshed);
+    // this.tryConnectionWhenRefreshed();
   },
   data() {
     return {
@@ -140,9 +302,12 @@ export default {
       initTimeStamp: undefined,
       currentTimeStamp: undefined,
       scoreArr: [],
+      // timeoutId: undefined,
+      // kakaoConnectionAttempt: 0,
       scoreAverage: undefined,
       testCount: 1,
-      bgColor: '#a2ebf6',
+      bgColor: '#5DE52A',
+      onResult: false,
       countDownNum1: '',
       userHaveToClick: false,
       countDownNum2: '',
@@ -153,8 +318,10 @@ export default {
       randTimeUnder5s: undefined,
       timeStamp: undefined,
       init: true,
-      sum: 0,
+      // sum: 0,
       notify: '',
+      textColor: 'black',
+      avg: 0,
     };
   },
 }
@@ -209,5 +376,7 @@ export default {
 }
 * {
   user-select: none;
+  border: none;
+  outline: none;
 }
 </style>

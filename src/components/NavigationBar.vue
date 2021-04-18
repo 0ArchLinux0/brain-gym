@@ -1,10 +1,10 @@
 <template>
-  <div class="flex w-full border-b py-1 items-center bg-blue-100 text-black">
+  <div class="flex w-full border-b py-1 items-center bg-white text-black">
     <div
       class="flex flex-row justify-center items-center w-full"
     >
       <div
-        class="flex flex-row justify-between items-center w-full md:w-3/4 items-center"
+        class="flex flex-row justify-between items-center w-3/4 items-center"
       >
           <!-- key="back" -->
         <button
@@ -12,6 +12,7 @@
           style="margin-top: 5px;"
           @click="toHome"
         >
+          <img alt="Home Image" width="27" height="27" class="mr-3" src="@/assets/home.png"/>
           Home
         </button>
         <span
