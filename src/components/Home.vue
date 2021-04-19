@@ -51,7 +51,8 @@ export default {
       }
       else this.calcSize = { 
         width: `${window.innerWidth * 2 / 7}px`,
-        height: `${window.innerWidth * 5 / 21}px` 
+        // height: `${window.innerWidth * 5 / 21}px` 
+        // height: `${window.innerWidth * 7.3 / 21}px` 
       };
     },
     mobileResize() {
@@ -65,7 +66,8 @@ export default {
       }
       else this.calcSize = { 
         width: `${window.innerWidth * 6/ 7}px`,
-        height: `${window.innerWidth * 5 / 7}px` 
+        // height: `${window.innerWidth * 5 / 7}px` 
+        // height: `${window.innerWidth * 17 / 7}px` 
       };
     }
   },

@@ -1,7 +1,7 @@
 <template>
   <div class="my-2">
     <div 
-      class="flex flex-col justify-start items-center bg-white rounded-md pt-5 cursor-pointer overflow-hidden hover"
+      class="flex flex-col justify-start items-center bg-white rounded-md pt-5 overflow-x-hidden cursor-pointer hover"
       :style="calcSize"
       @click="pushToRouter"
     >
@@ -12,7 +12,7 @@
         :style="calcImgSize"
         @error="showDefault(err)"
       />
-      <div class="mt-6 mb-5 text-lg font-semibold sm:text-xl md:text-2xl sm:text-3xl lg:text-4xl"> 
+      <div class="mt-6 px-1 mb-5 w-full h-full truncate text-lg font-semibold sm:text-xl md:text-2xl sm:text-3xl lg:text-4xl"> 
         {{title}}
       </div>
       <!-- <div v-for="item in [1,2,3]"
