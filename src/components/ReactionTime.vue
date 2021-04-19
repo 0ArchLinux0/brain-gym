@@ -11,7 +11,7 @@
       @mousedown="userClicked"
     > 
       <!-- style="height: 70vh" -->
-      <div class="absolute left-2 w-full text-sm sm:left-6" style="top:3rem;">
+      <div v-show="!onResult" class="absolute left-2 w-full text-sm sm:left-6" style="top:3rem;">
         <ReactionTimeScoreBoard
           :mobile="mobile"
           :timeRecord="scoreArr"
@@ -41,7 +41,7 @@
       v-bind:style="{'backgroundColor': bgColor, 'color': textColor}"
       @mousedown="userClicked"
     >
-    <div class="absolute w-1/5 h-full text-lg" style="top:3rem; marginLeft:3rem;">
+    <div v-show="!onResult" class="absolute w-1/5 h-full text-lg" style="top:3rem; marginLeft:3rem;">
       <ReactionTimeScoreBoard
         :mobile="mobile"
         :timeRecord="scoreArr"
