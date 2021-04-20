@@ -91,6 +91,7 @@ export default {
     position: relative;
     height: 100vh;
     /* background-color: yellowgreen;  */
+    background-color: black; 
   }
   #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
@@ -99,8 +100,8 @@ export default {
   /* -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   color: #2c3e50;
-  background-color: black;
-  margin: 0;
+  /* background-color: black; */
+  margin-bottom: 50px;
   padding: 0;
   /* height: 100%; */
   /* height: 100vh; */

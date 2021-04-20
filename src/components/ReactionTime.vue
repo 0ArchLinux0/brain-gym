@@ -7,7 +7,7 @@
         'backgroundColor': bgColor, 
         'height': onResult ? '40vh' : '60vh'
       }"
-      @mousedown="userClicked"
+      @touchstart="userClicked"
     > 
       <!-- style="height: 70vh" -->
       <div v-show="!onResult" class="absolute left-2 w-1/2  text-sm sm:left-6" style="top:3rem;">

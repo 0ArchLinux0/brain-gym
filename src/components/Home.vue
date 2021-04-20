@@ -1,6 +1,6 @@
 <template>
   <div class="relative w-full h-auto">
-    <div v-if="mobile" class="flex flex-col px-2 w-full justify-between items-center">
+    <div v-if="mobile" class="flex flex-col px-2 pb-10 w-full justify-between items-center">
       <BigCategoryBox
         v-for="infoPair in infoData"
         :key="`item-${infoPair.title}`"
