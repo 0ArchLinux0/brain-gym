@@ -1,20 +1,21 @@
 <template>
-  <div v-if="mobile" class="relative w-full h-full" style="max-height: 100vh;max-width:100vw;" ref="content">
+  <div v-if="mobile" class="relative w-full h-full" style="min-height: 100vh;min-width:100vw;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
     />
     <FooterComp
-      class="absolute b-0"    
+      class="fixed"
+      style="bottom: 0px"
     />
   </div>
-  <div v-else class="relative w-full h-full overflow-hidden" style="max-height:100vh; min-width:100vw;" ref="content">
+  <div v-else class="relative w-full h-full overflow-hidden" style="min-height:100vh; min-width:100vw;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
     />
     <FooterComp
-      class="fixed"    
+      class="absolute"    
       style="bottom: 0px"
     />
   </div>  
@@ -58,7 +59,7 @@ export default {
     const filter = "hp-ux|linux i686|linux armv7l|mac68k|macppc|macintel|sunos|win16|win32|wince";
     console.log(navigator.platform);
     if (navigator.platform) this.mobile = filter.indexOf(navigator.platform.toLowerCase()) < 0;
-    // this.mobile = true;
+    this.mobile = true;
     console.log(this.mobile);
     const kakoapiscript = document.createElement('script');
     kakoapiscript.setAttribute('src', 'https://developers.kakao.com/sdk/js/kakao.js');
@@ -86,10 +87,10 @@ export default {
     src: url(./assets/ZenDots-Regular.ttf) format('truetype'); 
     /* With local('ZenDots-Regular.ttf') Font doens't work Also with format('ttf')*/
   }
-  html,body {
+  body, #app {
     position: relative;
-    height: 100%;
-    background-color: black; 
+    height: 100vh;
+    /* background-color: yellowgreen;  */
   }
   #app {
   /* font-family: Avenir, Helvetica, Arial, sans-serif; */
@@ -98,7 +99,10 @@ export default {
   /* -moz-osx-font-smoothing: grayscale; */
   text-align: center;
   color: #2c3e50;
-  height: 100%;
+  background-color: black;
+  margin: 0;
+  padding: 0;
+  /* height: 100%; */
   /* height: 100vh; */
   /* margin-top: 0 px; */
   }

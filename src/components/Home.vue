@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="relative w-full h-auto bg-red-200">
     <div v-if="mobile" class="flex flex-col px-2 w-full justify-between items-center">
       <BigCategoryBox
         v-for="infoPair in infoData"

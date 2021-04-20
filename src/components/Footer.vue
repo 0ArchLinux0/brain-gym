@@ -1,6 +1,6 @@
 <template>
   <div
-    class="flex flex-col w-full items-center justify-center border-t bg-white py-3 md:flex-row text-plaxtextg"
+    class="flex flex-col w-full h-auto items-center justify-center border-t bg-white py-3 md:flex-row text-plaxtextg"
   >
     <div class="flex flex-col justify-start w-full md:w-3/5">
       <div class="flex flex-col items-center">

@@ -1,9 +1,13 @@
 <template>
-  <div class="w-full h-full text-white">
+  <div class="relative w-full text-white">
     <NavigationBar/>
     <!-- style="color:#a2ebf6"-->
-    <div class="text-xl mb-2 pt-4 md:text-6xl md:pt-2 md:pb-5">
-      Brain Gym
+    <div class="flex justify-center">
+      <div 
+        class="text-xl mb-1 mt-2 md:text-6xl md:pt-2 md:pb-5"
+      >
+        Brain Gym
+      </div>
     </div>
     <router-view
      :mobile="mobile"
@@ -60,4 +64,7 @@ a {
   margin-bottom: 1rem;
   background-color: rgb(226, 43, 83);
 }
+/* #ContainerMain {
+  background-color: yellowgreen;
+} */
 </style>

@@ -1,17 +1,16 @@
 <template>
-  <div class="w-full h-full overflow-hidden">
     <div
       v-if="mobile"
       class="relative w-full h-full flex flex-col justify-around "
       v-bind:style="{
-        'backgroundColor': bgColor, 
         'color': textColor, 
-        'height': onResult ? '41%' : '100%'
+        'backgroundColor': bgColor, 
+        'height': onResult ? '40vh' : '60vh'
       }"
       @mousedown="userClicked"
     > 
       <!-- style="height: 70vh" -->
-      <div v-show="!onResult" class="absolute left-2 w-full text-sm sm:left-6" style="top:3rem;">
+      <div v-show="!onResult" class="absolute left-2 w-1/2  text-sm sm:left-6" style="top:3rem;">
         <ReactionTimeScoreBoard
           :mobile="mobile"
           :timeRecord="scoreArr"
@@ -75,7 +74,6 @@
         <img src="@/assets/kakaotalk_logo-256px.png"/>
       </button>
     </div>
-  </div>
 </template>
 
 <script>
@@ -100,8 +98,7 @@ export default {
         this.start = currentTimeStamp;
         window.requestAnimationFrame(this.startTest);
       }
-      const elapsed = currentTimeStamp - this.start;
-      if(elapsed >= 1000) {
+      if(currentTimeStamp - this.start >= 1000) {
         this.bgColor = ['green','red','blue','yellow','black','orange'][parseInt(Math.random()*100)%6];
         this.start = currentTimeStamp;
       }

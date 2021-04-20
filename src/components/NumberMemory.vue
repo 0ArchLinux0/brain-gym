@@ -1,15 +1,16 @@
 <template>
+<div class="relative w-full h-auto">
   <div 
     class="relative flex flex-col justify-center text-3xl items-center w-full h-full overflow-hidden"
     v-bind:style="{
+        'height': mobile ? result ? '70vh' : '70vh' : '60vh',
         'backgroundColor': bgColor, 
-        'height': mobile ? onResult ? '41%' : '100%' : '60vh',
       }"
     @click="userClicked"
   >
     <div class = "absolute w-1/2 flex flex-col justify-start items-center" style="height:20px; top:8%">
       <div class="text-center text-4xl">Stage {{stage}}</div>
-      <div class="flex w-full my-5 justify-between items-center" >
+      <div v-show="!mobile||!result" class="flex w-full my-5 justify-between items-center" >
         <span class="text-xs mr-2">0%</span>
         <div ref="progressbarWrapper" class="relative flex-grow border-2 border-white" style="height:20px;">
           <div class="h-full progressbar" :style="{'width':`${progressBarWid}px`}"/>
@@ -17,6 +18,7 @@
         <span class="relative left-2 text-xs">100%</span>
       </div>
       <button 
+        v-show="inputTime"
         class="text-lg rounded-lg" 
         style="backgroundColor:lightgreen; width: 90px; height: 30px"
         @click.stop="submit"
@@ -35,6 +37,7 @@
     > -->
       <input 
         v-show="inputTime"
+        @keydown.enter="submit()"
         ref="inputRef"
         type="text"
         class="absolute w-1/2 block text-white text-center bg-black border-2 border-white"
@@ -62,6 +65,7 @@
       <img src="@/assets/kakaotalk_logo-256px.png"/>
     </button>
   </div>
+</div>
 </template>
 
 <script>
@@ -72,8 +76,6 @@ export default {
   },
   props: {
     mobile: Boolean,
-    title: String,
-    fileName: String,
   },
   computed: {
     timeIncrement() {
