@@ -1,5 +1,5 @@
 <template>
-  <div id="countdownscene" style="font-size:7rem;" class="w-10 h-10 bg-red-200">
+  <div id="countdownscene" style="font-size:7rem;" class="w-10 h-10">
     <div id="card" ref="card">
       <div class="card_face face_front flip0to270">{{countDownNum1}}</div>
       <div class="card_face face_back flip0to270">{{countDownNum2}}</div>
