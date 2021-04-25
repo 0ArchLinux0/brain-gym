@@ -72,7 +72,6 @@ export default {
     }
   },
   mounted() {
-    console.log("mounted");
     if(this.mobile) {
       this.callback = this.mobileResize;
     } else this.callback = this.pcResize;
