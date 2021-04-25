@@ -66,10 +66,12 @@ export default {
     this.title = this.titleProp;
     try {
       this.assetUrl = require(`@/assets/${this.fileName}`);
+      console.log("success filename: " + this.fileName)
     } catch(e) {
       // console.log(e);
       this.assetUrl = defaultImage;
       this.title = "Preparing..."
+      console.log(e);
     }
     console.log(this.assetUrl);
   },

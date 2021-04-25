@@ -8,10 +8,31 @@ import Registration from '../components/Registration.vue'
 import Home from '../components/Home.vue'
 
 const routes = [
+  // { 
+  //   path: '/', 
+  //   component: ContainerMain,
+  //   // beforeEnter: requireAuth
+  //   children: [
+  //     {
+  //       name: 'Home',
+  //       path: '/',
+  //       component: Home
+  //     },
+  //     {
+  //       name: 'ReactionTime',
+  //       path: '/reaction-time',
+  //       component: ReactionTime
+  //     },
+  //     {
+  //       name: 'NumberMemory',
+  //       path: '/memory/number',
+  //       component: NumberMemory
+  //     },
+  //   ]
+  // },
   { 
     path: '/', 
     component: ContainerMain,
-    // beforeEnter: requireAuth
     children: [
       {
         name: 'Home',

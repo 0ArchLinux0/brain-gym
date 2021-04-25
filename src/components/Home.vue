@@ -92,11 +92,11 @@ export default {
         },
         {
           title: 'Number Memory',
-          fileName: 'maintainance.jpeg'
+          fileName: 'numbers.jpeg'
         },
         {
           title: 'Aim Trainer',
-          fileName: ''
+          fileName: 'maintainance.jpeg'
         },
       ],
       calcSize: { 

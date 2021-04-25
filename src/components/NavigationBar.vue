@@ -20,12 +20,12 @@
         >
           Improve yourself!
         </div>
-        <button
+        <!-- <button
           class="text-sm lg:text-base w-1/4 text-right"
           @click="logIn"
         >
           Login
-        </button>
+        </button> -->
       </div>
     </div>
   </div>

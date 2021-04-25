@@ -37,7 +37,7 @@
     > -->
       <input 
         v-show="inputTime"
-        @keydown.enter="submit()"
+        @keydown.enter="submit"
         ref="inputRef"
         type="text"
         class="absolute w-1/2 block text-white text-center bg-black border-2 border-white"
@@ -117,9 +117,11 @@ export default {
           this.testNumber = '';
           this.$refs.card.classList.value = 'flip0to270';
           this.init = false;
+          this.running = true;
           this.preventClickEvent = true;
-        } else if(!this.preventClickEvent) this.startTest();
-        
+        } else if(!this.isFirstStage && !this.canSubmit) {
+          this.jumpToInput();
+        }
         // setTimeout(() => {
         //   this.testNumber = '!'
         //   const a = true;
@@ -172,7 +174,9 @@ export default {
           } else return this.inputAnswer();                           
       } else this.animationID = window.requestAnimationFrame(this.progressBar);
     },
-    submit() {
+    submit(event) {
+      console.log(event);
+      event.preventDefault();
       if(!this.canSubmit) return;
       this.timeStamp = undefined;
       
@@ -185,8 +189,18 @@ export default {
         return this.showResult();
       }
     },
-    showResult() {
+    jumpToInput() {
+      if(this.canSubmit  || this.inputTime) return;
+      console.log('jump!!!!!!!')
+      this.timeStamp = undefined;
       
+      window.cancelAnimationFrame(this.animationID);
+      this.animationID = undefined;
+      this.progressBarWid = 0;
+      return this.inputAnswer();
+    },
+    showResult() {
+      this.running = false;
       this.canSubmit = false;
       this.inputTime = false;
       this.testNumber = "game over";
@@ -215,9 +229,16 @@ export default {
       }
       this.is0To270 = !this.is0To270;
     })
+    const a = this;
+    window.document.onkeypress = function (e) {
+      e = e || window.event;
+      if (e.key === 'Enter')
+        a.userClicked();
+    };
   },
   data() {
     return {
+      running: false,
       testNumber: '',
       countDownNum1: '',
       shareStage: 0,
