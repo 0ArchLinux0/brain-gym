@@ -73,7 +73,6 @@ export default {
       this.title = "Preparing..."
       console.log(e);
     }
-    console.log(this.assetUrl);
   },
   data() {
     return {
