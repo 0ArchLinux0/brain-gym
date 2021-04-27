@@ -1,3 +1,0 @@
-/* /index.html 200
-#/reaction-time
-#/memory/number 
