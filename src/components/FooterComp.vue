@@ -6,8 +6,8 @@
       <div class="flex flex-col items-center">
         <div class="w-full justify-center items-center flex flex-wrap">
           <span class="inline-block px-1">@</span>
+            <!-- href="/about" -->
           <a
-            href="/about"
             class="flex px-1 whitespace-no-wrap"
             :class="{ 'text-sm': !isMobile, 'text-xs': isMobile }"
           >
@@ -15,7 +15,7 @@
           </a>
           <span class="inline-block px-1">@</span>
           <a
-            href="/contact"
+            href="https://0archlinux0.github.io/posts/Contact/"
             class="flex px-1 whitespace-no-wrap"
             :class="{ 'text-sm': !isMobile, 'text-xs': isMobile }"
           >

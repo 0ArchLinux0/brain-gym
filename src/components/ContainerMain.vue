@@ -6,7 +6,7 @@
       <div 
         class="text-xl mb-1 mt-2 md:text-6xl md:pt-2 md:pb-5"
       >
-        Brain Gym
+        {{title}}
       </div>
     </div>
     <router-view
@@ -26,6 +26,37 @@ export default {
   },
   props: {
     mobile: Boolean,
+  },
+  watch: {
+    '$route' (to, from) {
+      // console.log(to);
+      if(to.path == from.path) return;
+      else {
+        switch(to.name) {
+          case 'Home':
+            this.title = "Brain Gym";
+            break;
+          case 'NumberMemory':
+            this.title = 'Number Memory';
+            break;
+          case 'ReactionTime':
+            this.title = "Reaction Time";
+            break;
+          default:
+            this.title = "Brain Gym";
+            break;
+        }
+      }
+    }
+  },
+  data() {
+    return {
+      title: "Brain Gym",
+    }
+  },
+  mounted() {
+    // if(this.$router.)
+    // console.log(this.$route);
   }
 }
 </script>

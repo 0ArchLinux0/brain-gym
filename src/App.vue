@@ -1,5 +1,5 @@
 <template>
-  <div v-if="mobile" class="relative w-full h-full" style="min-height: 100vh;min-width:100vw;" ref="content">
+  <div v-if="mobile" class="relative w-full h-full" style="min-height: 100vh;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
@@ -9,7 +9,7 @@
       style="bottom: 0px"
     />
   </div>
-  <div v-else class="relative w-full h-full overflow-hidden" style="min-height:100vh; min-width:100vw;" ref="content">
+  <div v-else class="relative w-full h-full overflow-hidden" style="min-height:100vh;" ref="content">
     <!-- <div class="w-full h-full bg-red-300">asdf</div> -->
     <router-view
       :mobile="mobile"
