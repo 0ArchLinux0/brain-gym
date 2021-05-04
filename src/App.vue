@@ -70,6 +70,14 @@ export default {
       console.log("kako api successfully initialized: " + window.Kakao.isInitialized());
     })
     document.head.appendChild(kakoapiscript);
+
+    let googleAdSense = document.createElement('script')
+    googleAdSense.setAttribute('src', 'https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js')
+    googleAdSense.setAttribute('data-ad-client', 'ca-pub-6869608997080714')
+    googleAdSense.addEventListener('load', () => {
+      console.log("google adsense successfully loaded");
+    })
+    document.head.appendChild(googleAdSense)
   },
   data() {
     return {

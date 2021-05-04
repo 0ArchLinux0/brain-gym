@@ -94,7 +94,7 @@ export default {
           fileName: 'numbers.jpeg'
         },
         {
-          title: 'Aim Trainer',
+          title: 'Mental Arithmetic',
           fileName: 'maintainance.jpeg'
         },
       ],

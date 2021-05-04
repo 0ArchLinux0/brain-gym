@@ -3,6 +3,7 @@ import { createWebHistory, createRouter } from 'vue-router'
 import ContainerMain from '../components/ContainerMain.vue'
 import ReactionTime from '../components/ReactionTime.vue'
 import NumberMemory from '../components/NumberMemory.vue'
+import MentalArithmetic from '../components/MentalArithmetic.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
 import Home from '../components/Home.vue'
@@ -48,6 +49,11 @@ const routes = [
         name: 'NumberMemory',
         path: '/memory/number',
         component: NumberMemory
+      },
+      {
+        name: 'MentalArithmetic',
+        path: '/mental-arithmetic',
+        component: MentalArithmetic
       },
     ]
   },
