@@ -66,7 +66,8 @@ export default {
     kakoapiscript.addEventListener('load', () => {
       console.log(window.Kakao);
       
-      window.Kakao.init('306dc74315e55a8ab89e3af2a60e4c47');
+      // window.Kakao.init('306dc74315e55a8ab89e3af2a60e4c47');
+      window.Kakao.init('bd2bf9ea6b0c8324385d55972f093874');
       console.log("kako api successfully initialized: " + window.Kakao.isInitialized());
     })
     document.head.appendChild(kakoapiscript);

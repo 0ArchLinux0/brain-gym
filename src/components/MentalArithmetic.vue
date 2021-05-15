@@ -27,7 +27,10 @@
       </button>
     </div>
 
-    <div v-show="!inputTime" class="absolute">
+    <div 
+      v-show="!inputTime" 
+      class="absolute"
+    >
       {{testNumber}}
       <div>{{result}}</div>
     </div>
@@ -77,6 +80,11 @@ export default {
   props: {
     mobile: Boolean,
   },
+  watch: {
+    inputTime(newVal) {
+      console.log(newVal);
+    }
+  },
   computed: {
     timeIncrement() {
       let result = undefined;
@@ -100,9 +108,10 @@ export default {
   methods: {
     kakaotalkShare() {
       window.Kakao.Link.sendCustom({
-        templateId: 52162,
+        // templateId: 52162,
+        templateId: 53053,
         templateArgs: {
-          'stage': `${this.shareStage}`,
+          'stage': `${this.stage - 1}`,
         },
       });
     },
@@ -115,6 +124,7 @@ export default {
           this.countDownNum2 = 2;
           this.result = undefined;
           this.testNumber = '';
+          this.stage = 1;
           this.$refs.card.classList.value = 'flip0to270';
           this.init = false;
           this.running = true;
@@ -138,20 +148,43 @@ export default {
       let tempStr1 = '';
       let tempStr2 = '';
       if(this.isFirstStage) this.isFirstStage = false;
-      else {
-        this.stage++;
+      else if(!this.showingSecondNum) {
         this.timeLimit -= 4;
+        this.stage++;
       }
       if(this.showingSecondNum) {
         this.testNumber = this.testNumberTemp;
       } else {
-        for(let i=0; i < this.stage; i++) {
+        tempStr1 += Math.floor(Math.random() * 100) % 9 + 1;
+        tempStr2 += Math.floor(Math.random() * 100) % 9 + 1;
+        this.operator = ['+','-','+','*','+','-','+'][parseInt(Math.random()*100)%7];
+        let numberLenToExpand;
+        if(this.operator === '*') {
+          if(this.stage == 1) numberLenToExpand = 0; 
+          else if(this.stage <= 8) numberLenToExpand = 1;
+          else if(this.stage <= 14) numberLenToExpand = 2;
+          else  numberLenToExpand = parseInt(this.stage / 5);
+        } else numberLenToExpand = this.stage - 1;
+        for(let i=0; i < numberLenToExpand; i++) {
           tempStr1 += Math.floor(Math.random() * 100) % 10;
           tempStr2 += Math.floor(Math.random() * 100) % 10;
         }
-        this.testNumber = tempStr1;
-        this.testNumberTemp = tempStr2;        
-        this.answer = parseInt(this.testNumber) + parseInt(this.testNumberTemp);
+        if(tempStr2 > tempStr1) {
+          let temp;
+          temp = tempStr1;
+          tempStr1 =tempStr2;
+          tempStr2 = temp;
+        }
+        this.testNumber = tempStr1 + " " + this.operator;
+        this.testNumberTemp = tempStr2;
+        switch(this.operator) {
+          case '+': this.rightAnswer = parseInt(this.testNumber) + parseInt(this.testNumberTemp);
+            break;
+          case '-': this.rightAnswer = parseInt(this.testNumber) - parseInt(this.testNumberTemp);
+            break;
+          case '*': this.rightAnswer = parseInt(this.testNumber) * parseInt(this.testNumberTemp);
+            break;
+        }        
       }
       // this.$refs.inputRef.focus();
       // setTimeout(() => { return this.inputAnswer() }, 3000);
@@ -162,6 +195,7 @@ export default {
     inputAnswer() {
       console.log('input')
       this.canSubmit = true;
+      this.showingSecondNum = false;
       this.inputTime = true;
       this.$nextTick(() => {
         this.$refs.inputRef.focus();
@@ -180,7 +214,8 @@ export default {
         this.timeStamp = undefined;
         this.progressBarWid = 0;
         if(this.inputTime) {
-          if(this.testNumber == this.answer) return this.startTest();
+          console.log(this.rightAnswer);
+          if(this.rightAnswer == this.answer) return this.startTest();
           else return this.showResult();
         } else if(this.showingSecondNum) {
           this.showingSecondNum = false;
@@ -200,9 +235,8 @@ export default {
       window.cancelAnimationFrame(this.animationID);
       this.animationID = undefined;
       this.progressBarWid = 0;
-      if(this.testNumber == this.answer) return this.startTest();
+      if(this.rightAnswer == this.answer) return this.startTest();
       else {
-        // window.cancelAnimationFrame(this.animationID);
         return this.showResult();
       }
     },
@@ -214,19 +248,23 @@ export default {
       window.cancelAnimationFrame(this.animationID);
       this.animationID = undefined;
       this.progressBarWid = 0;
-      return this.inputAnswer();
+      if(this.showingSecondNum) return this.inputAnswer();
+      else {
+        this.showingSecondNum = true;
+        return this.startTest();
+      }
     },
     showResult() {
       this.running = false;
       this.canSubmit = false;
       this.inputTime = false;
       this.testNumber = "game over";
+      this.showingSecondNum = false;
       this.isFirstStage = true;
       this.result = `You've passed through to level ${this.stage - 1}.`
       this.bgColor = '#1F618D';
       this.timeLimit = 0;
       this.shareStage = this.stage - 1;
-      this.stage = 1;
       this.init = true;
       this.preventClickEvent = false;
     },

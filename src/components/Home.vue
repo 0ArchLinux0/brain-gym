@@ -95,7 +95,8 @@ export default {
         },
         {
           title: 'Mental Arithmetic',
-          fileName: 'maintainance.jpeg'
+          // fileName: 'maintainance.jpeg'
+          fileName: 'black_arithmetic.jpeg'
         },
       ],
       calcSize: { 

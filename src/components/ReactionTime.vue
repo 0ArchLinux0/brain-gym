@@ -198,7 +198,8 @@ export default {
     // },
     kakaotalkShare() {
       window.Kakao.Link.sendCustom({
-        templateId: 51963,
+        // templateId: 51963,
+        templateId: 53051,
         templateArgs: {
           'avg': this.avg,
         },

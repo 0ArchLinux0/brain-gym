@@ -100,9 +100,10 @@ export default {
   methods: {
     kakaotalkShare() {
       window.Kakao.Link.sendCustom({
-        templateId: 52162,
+        templateId: 53052,
+        // templateId: 52162,
         templateArgs: {
-          'stage': `${this.shareStage}`,
+          'stage': `${this.stage - 1}`,
         },
       });
     },
@@ -110,6 +111,7 @@ export default {
       // return new Promise((resolve, reject) => {
         if(this.init) {
           console.log("start test!!!");
+          this.stage = 1;
           this.bgColor = 'black';
           this.countDownNum1 = 3;
           this.countDownNum2 = 2;
@@ -208,8 +210,6 @@ export default {
       this.result = `You've passed through to level ${this.stage - 1}.`
       this.bgColor = '#1F618D';
       this.timeLimit = 0;
-      this.shareStage = this.stage - 1;
-      this.stage = 1;
       this.init = true;
       this.preventClickEvent = false;
     },
@@ -241,7 +241,6 @@ export default {
       running: false,
       testNumber: '',
       countDownNum1: '',
-      shareStage: 0,
       countDownNum2: '',
       animationID: undefined,
       bgColor: 'black',
