@@ -1,4 +1,4 @@
-# test-service
+# brain-gym
 
 ## Project setup
 ```
