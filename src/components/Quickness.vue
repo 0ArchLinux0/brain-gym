@@ -19,24 +19,39 @@
       </div>
     </div>
 
-    <!-- <div v-show="!inputTime" class="absolute">
+    <div v-show="showingResult" class="absolute text-black">
       <div>{{result}}</div>
-    </div> -->
+      <div 
+        class="relative flex justify-end items-center"
+      >
+        <img 
+          v-if="assetUrl !== undefined"
+          :src="assetUrl"
+          class="cursor-pointer"
+          style="width: 2.5rem; height: 2.5rem"
+          @click="restart()"
+          @error="showDefault(err)"
+        />
+      <div class="ml-2"> try again </div>
+    </div>
+    </div>
     <!-- <div class="grid-item"></div> -->
     
-    <div class="grid-container">
+    <div v-show="!showingResult" class="grid-container">
       <div 
-        v-for="number in numbers"
+        v-for="(number, idx) in numbers"
         class="grid-item"
-        :key="number"
+        :key="idx"
       >
-        <div
+        <div v-if="testRunning && !animationRunning"
           class="number"
+          @click="numberClick(number, idx)"
         >
           {{ number }}
         </div>
       </div>
     </div>
+
   
     <div id="countdownscene" style="font-size:7rem;">
       <div id="card" ref="card">
@@ -45,9 +60,12 @@
       </div>
     </div>
   </div>
+
   
-  <div v-show="result" class="z-100 mt-5 flex justify-center items-center w-full text-lg">
-    Share your reaction time!
+  
+  <div v-show="showingResult" class="z-100 mt-5 flex justify-center items-center w-full text-lg">
+    
+    <div>Share your time record!</div>
     <button 
       id="kakao_share" 
       class="ml-6 cursor-pointer" 
@@ -71,15 +89,24 @@ export default {
   computed: {
   },
   methods: {
+    numberClick(number, idx) {
+      if(number != this.numberToClick) return;
+      if(this.newNumber <= 50) this.numbers[idx] = this.newNumber++;
+      else this.numbers[idx] = null;
+      console.log(this.numberToClick);
+      if(++this.numberToClick == 51) return this.showResult(true);
+
+    },
     kakaotalkShare() {
       window.Kakao.Link.sendCustom({
-        templateId: 53052,
+        templateId: 70563,
         templateArgs: {
-          'stage': `${this.stage - 1}`,
+          'time': `${this.timeRecord}`,
         },
       });
     },
     userClicked() {
+      if(this.showingResult) return;
       if(!this.testRunning) {
         console.log("start test!!!");
         this.bgColor = 'black';
@@ -91,7 +118,6 @@ export default {
         this.animationRunning = true;
       } 
       else if(this.testRunning && this.animationRunning) {
-        console.log('jump')
         this.$refs.card.classList.value = '' 
         this.countDownNum1 = '';
         this.countDownNum2 = '';
@@ -101,6 +127,7 @@ export default {
       }
     },
     startTest() {
+      this.progressBar();
       this.progressbarWrapperWid = this.$refs.progressbarWrapper.clientWidth;
     },
     progressBar() {
@@ -111,16 +138,33 @@ export default {
       if(elapsed >= this.timeLimit) {
         this.timeStamp = undefined;
         this.progressBarWid = 0;
-        if(this.inputTime) {
-          return this.showResult();
-        } else return this.inputAnswer();                           
-      } else window.requestAnimationFrame(this.progressBar);
+        this.animationId = undefined;
+        this.showResult(false);
+      } else this.animationId = window.requestAnimationFrame(this.progressBar);
     },
-    showResult() {
-      this.animationRunning = false;
-      this.result = `You've passed through to level ${this.stage - 1}.`
-      this.bgColor = '#1F618D';
-      this.testRunning = false;
+    showResult(success) {
+      this.progressBarWid = 0;
+      this.timeRecord = (new Date() - this.timeStamp) / 1000;
+      if(this.animationId) this.cancelAnimation();
+      this.result = success ? 
+        `Solved in ${this.timeRecord} s` : 
+        "Fail to solve";
+      this.bgColor = 'white';
+      this.showingResult = true;
+      // this.testRunning = false;
+    },
+    cancelAnimation() {
+      window.cancelAnimationFrame(this.animationId);
+      this.animationId = undefined;
+    },
+    restart() {
+      this.newNumber = 26;
+      this.numberToClick = 1;
+      this.showingResult = false;
+      this.timeStamp = undefined;
+      this.bgColor = 'black';
+      this.createNumbers();
+      this.startTest();
     },
     createNumbers() {
       const arr = [];
@@ -139,6 +183,7 @@ export default {
   },
   mounted() {
     this.createNumbers();
+    this.assetUrl = require(`@/assets/reload.png`);
     const animatedEl = document.getElementById('card');
     animatedEl.addEventListener('animationiteration', () => {
       console.log('animation iterating!!!!');
@@ -165,20 +210,26 @@ export default {
   },
   data() {
     return {
+      timeRecord: null,
+      animationId: undefined,
       countDownNum1: '',
       countDownNum2: '',
       bgColor: 'black',
+      // bgColor: 'white',
       is0To270: true,
-      timeLimit: 60,
+      timeLimit: 240,
       progressbarWrapperWid: undefined,
       testRunning: false,
-      inputTime: false,
+      showingResult: false,
+      // testRunning: true,
+      // showingResult: true,
       progressBarWid: 0,
-      canSubmit: false,
-      answer: '',
       timeStamp: undefined,
       result: undefined,
-      numbers: new Array(25)
+      numbers: new Array(25),
+      numberToClick: 1,
+      newNumber: 26,
+      assetUrl: undefined,
     };
   },
 }
