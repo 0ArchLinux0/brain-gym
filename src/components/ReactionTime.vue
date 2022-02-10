@@ -285,7 +285,13 @@ export default {
         this.startTest();
       }
       this.is0To270 = !this.is0To270;
-    })
+    });
+
+    document.addEventListener('keypress', (e) => {
+      e = e || window.event;
+      if (e.key === 'Enter')
+        this.userClicked();
+    });
     // animatedEl.addEventListener('animationend', () => {
       // console.log('Animation ended');
       // this.$refs.card.style['animation-play-state'] = 'paused';

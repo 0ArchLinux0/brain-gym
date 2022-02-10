@@ -4,6 +4,7 @@ import ContainerMain from '../components/ContainerMain.vue'
 import ReactionTime from '../components/ReactionTime.vue'
 import NumberMemory from '../components/NumberMemory.vue'
 import MentalArithmetic from '../components/MentalArithmetic.vue'
+import Quickness from '../components/Quickness.vue'
 import Login from '../components/Login.vue'
 import Registration from '../components/Registration.vue'
 import Home from '../components/Home.vue'
@@ -54,6 +55,11 @@ const routes = [
         name: 'MentalArithmetic',
         path: '/mental-arithmetic',
         component: MentalArithmetic
+      },
+      {
+        name: 'Quickness',
+        path: '/quickness',
+        component: Quickness
       },
     ]
   },

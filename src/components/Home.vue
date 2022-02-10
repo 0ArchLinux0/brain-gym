@@ -2,22 +2,41 @@
   <div class="relative w-full h-auto">
     <div v-if="mobile" class="flex flex-col px-2 pb-10 w-full justify-between items-center">
       <BigCategoryBox
-        v-for="infoPair in infoData"
+        v-for="infoPair in infoData1"
         :key="`item-${infoPair.title}`"
         :calcSize="calcSize"
         :titleProp="infoPair.title"
         :fileName="infoPair.fileName"
       />
-    </div>
-    <div v-else class="flex w-full h-full px-7 justify-between">
       <BigCategoryBox
-        v-for="infoPair in infoData"
-        :key="`item-${infoPair.title}`"
-        :calcSize="calcSize"
-        :titleProp="infoPair.title"
-        :fileName="infoPair.fileName"
-      />
+          v-for="infoPair in infoData2"
+          :key="`item-${infoPair.title}`"
+          :calcSize="calcSize"
+          :titleProp="infoPair.title"
+          :fileName="infoPair.fileName"
+        />
     </div>
+    <div v-else>
+      <div class="flex w-full h-full px-7 justify-between">
+        <BigCategoryBox
+          v-for="infoPair in infoData1"
+          :key="`item-${infoPair.title}`"
+          :calcSize="calcSize"
+          :titleProp="infoPair.title"
+          :fileName="infoPair.fileName"
+        />
+      </div>
+      <div class="flex w-full h-full px-7 justify-between">
+        <BigCategoryBox
+          v-for="infoPair in infoData2"
+          :key="`item-${infoPair.title}`"
+          :calcSize="calcSize"
+          :titleProp="infoPair.title"
+          :fileName="infoPair.fileName"
+        />
+      </div>
+    </div>
+    
   </div>
 </template>
 
@@ -84,19 +103,34 @@ export default {
   data() {
     return {
       assetUrl: undefined,
-      infoData: [
+      infoData1: [
         {
           title: 'Reaction Time',
-          fileName: 'speed.jpeg'
+          fileName: 'speed.png'
         },
         {
           title: 'Number Memory',
-          fileName: 'numbers.jpeg'
+          fileName: 'numbers.png'
         },
         {
           title: 'Mental Arithmetic',
-          // fileName: 'maintainance.jpeg'
-          fileName: 'black_arithmetic.jpeg'
+          // fileName: 'maintainance.png'
+          fileName: 'black_arithmetic.png'
+        },
+      ],
+      infoData2: [
+        {
+          title: 'Quickness',
+          // fileName: 'maintainance.png'
+          fileName: 'Quickness.png'
+        },
+        {
+          title: 'Mental Arithmetic',
+          // fileName: 'maintainance.png'
+        },
+        {
+          title: 'Mental Arithmetic',
+          // fileName: 'maintainance.png'
         },
       ],
       calcSize: { 

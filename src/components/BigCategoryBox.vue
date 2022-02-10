@@ -1,7 +1,8 @@
 <template>
   <div class="my-2">
     <div 
-      class="flex flex-col justify-start items-center bg-white rounded-md pt-5 overflow-x-hidden cursor-pointer hover"
+      class="flex flex-col justify-start items-center bg-white rounded-md pt-5 overflow-x-hidden hover"
+      :class="{ 'cursor-pointer': !reparing, 'hoverEffect' : !reparing }"
       :style="calcSize"
       @click="pushToRouter"
     >
@@ -13,7 +14,7 @@
         @error="showDefault(err)"
       />
       <div class="mt-6 px-1 mb-5 w-full h-full truncate text-lg font-semibold sm:text-xl md:text-2xl sm:text-3xl lg:text-4xl"> 
-        {{title}}
+        {{ title }} 
       </div>
       <!-- <div v-for="item in [1,2,3]"
         :key="'key'+item"
@@ -30,7 +31,7 @@
 </template>
 
 <script>
-const defaultImage = require("@/assets/maintainance.jpeg") //TODO : change default image to show when error occurs
+const defaultImage = require("@/assets/maintainance.png") //TODO : change default image to show when error occurs
 export default {
   name: 'BigCategoryBox',
   props: {
@@ -49,8 +50,10 @@ export default {
         }; 
       else {
         this.calcImgSize = { 
-          width: `${newVal.width * 3 / 5}px`,
-          height: `${newVal.width * 3 / 5}px`
+          // width: `${newVal.width * 3 / 5}px`,
+          // height: `${newVal.width * 3 / 5}px`
+          width: '150px',
+          height: '150px'
         }; 
       }
       console.log(newVal);
@@ -68,16 +71,19 @@ export default {
       this.assetUrl = require(`@/assets/${this.fileName}`);
       console.log("success filename: " + this.fileName)
     } catch(e) {
-      // console.log(e);
+      console.log(e);
       this.assetUrl = defaultImage;
+      this.reparing =  true;
       this.title = "Preparing..."
+      console.log(this.title);
       console.log(e);
     }
   },
   data() {
     return {
       assetUrl: undefined,
-      title: undefined,
+      title: "Preparing...",
+      reparing: false,
       calcImgSize : { 
         width: '128px', 
         height: '128px'
@@ -91,6 +97,7 @@ export default {
       this.assetUrl = defaultImage;
     },
     pushToRouter() {
+      if(this.reparing) return;
       this.$router.push({
         name: this.convertTitleToComponentName,
         //params:
@@ -112,7 +119,7 @@ export default {
 .hover {
   color: black;
 }
-.hover:hover {
+.hover .hoverEffect :hover {
   color: lightgreen;
 }
 </style>

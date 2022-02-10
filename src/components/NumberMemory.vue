@@ -229,12 +229,12 @@ export default {
       }
       this.is0To270 = !this.is0To270;
     })
-    const a = this;
-    window.document.onkeypress = function (e) {
+    
+    document.addEventListener('keypress', (e) => {
       e = e || window.event;
       if (e.key === 'Enter')
-        a.userClicked();
-    };
+        this.userClicked();
+    });
   },
   data() {
     return {
