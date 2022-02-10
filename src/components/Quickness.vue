@@ -9,7 +9,7 @@
     @click="userClicked"
   >
     <div class = "absolute w-1/2 flex flex-col justify-start items-center" style="height:20px; top:8%">
-      <div class="text-center text-4xl">Stage {{stage}}</div>
+      <div class="text-center text-4xl"> Press 1 to 50 ! </div>
       <div v-show="!mobile||!result" class="flex w-full my-5 justify-between items-center" >
         <span class="text-xs mr-2">0%</span>
         <div ref="progressbarWrapper" class="relative flex-grow border-2 border-white" style="height:20px;">
@@ -42,10 +42,10 @@
         v-for="(number, idx) in numbers"
         class="grid-item"
         :key="idx"
+        @click="numberClick(number, idx)"
       >
         <div v-if="testRunning && !animationRunning"
           class="number"
-          @click="numberClick(number, idx)"
         >
           {{ number }}
         </div>
@@ -91,11 +91,10 @@ export default {
   methods: {
     numberClick(number, idx) {
       if(number != this.numberToClick) return;
-      if(this.newNumber <= 50) this.numbers[idx] = this.newNumber++;
+      if(number <= 25) this.numbers[idx] = this.numbersToUpdate[idx];
       else this.numbers[idx] = null;
       console.log(this.numberToClick);
       if(++this.numberToClick == 51) return this.showResult(true);
-
     },
     kakaotalkShare() {
       window.Kakao.Link.sendCustom({
@@ -149,7 +148,7 @@ export default {
       this.result = success ? 
         `Solved in ${this.timeRecord} s` : 
         "Fail to solve";
-      this.bgColor = 'white';
+      this.bgColor = '#1F618D';
       this.showingResult = true;
       // this.testRunning = false;
     },
@@ -158,7 +157,6 @@ export default {
       this.animationId = undefined;
     },
     restart() {
-      this.newNumber = 26;
       this.numberToClick = 1;
       this.showingResult = false;
       this.timeStamp = undefined;
@@ -167,18 +165,29 @@ export default {
       this.startTest();
     },
     createNumbers() {
-      const arr = [];
-      for(let i = 1; i <= 25; i++) arr.push(i);
-      console.log(arr);
+      const arr1 = [];
+      const arr2 = [];
+      for(let i = 1; i <= 25; i++) arr1.push(i);
+      for(let i = 26; i <= 50; i++) arr2.push(i);
+
       for(let i = 0; i < 60; i++) {
         let rand1 = parseInt(Math.random() * 25);
         let rand2 = parseInt(Math.random() * 25);
+        let rand3 = parseInt(Math.random() * 25);
+        let rand4 = parseInt(Math.random() * 25);
         while(rand1 == rand2) rand2 = (rand2 + parseInt(Math.random() * 24)) % 25;
-        const tmp = arr[rand1];
-        arr[rand1] = arr[rand2];
-        arr[rand2] = tmp;
+        while(rand3 == rand4) rand4 = (rand2 + parseInt(Math.random() * 24)) % 25;
+
+        let tmp = arr1[rand1];
+        arr1[rand1] = arr1[rand2];
+        arr1[rand2] = tmp;
+
+        tmp = arr2[rand3];
+        arr2[rand3] = arr2[rand4];
+        arr2[rand4] = tmp;
       }
-      this.numbers = arr;
+      this.numbers = arr1;
+      this.numbersToUpdate = arr2;
     }
   },
   mounted() {
@@ -226,9 +235,9 @@ export default {
       progressBarWid: 0,
       timeStamp: undefined,
       result: undefined,
-      numbers: new Array(25),
+      numbers: [],
+      numbersToUpdate: [],
       numberToClick: 1,
-      newNumber: 26,
       assetUrl: undefined,
     };
   },

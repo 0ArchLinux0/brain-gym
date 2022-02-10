@@ -92,18 +92,18 @@ export default {
   computed: {
   },
   methods: {
-    changeBgColor() {
-      const currentTimeStamp = new Date();
-      if(this.start == undefined) {
-        this.start = currentTimeStamp;
-        window.requestAnimationFrame(this.startTest);
-      }
-      if(currentTimeStamp - this.start >= 1000) {
-        this.bgColor = ['green','red','blue','yellow','black','orange'][parseInt(Math.random()*100)%6];
-        this.start = currentTimeStamp;
-      }
-      window.requestAnimationFrame(this.startTest);
-    },
+    // changeBgColor() {
+    //   const currentTimeStamp = new Date();
+    //   if(this.start == undefined) {
+    //     this.start = currentTimeStamp;
+    //     window.requestAnimationFrame(this.startTest);
+    //   }
+    //   if(currentTimeStamp - this.start >= 1000) {
+    //     this.bgColor = ['green','red','blue','yellow','black','orange'][parseInt(Math.random()*100)%6];
+    //     this.start = currentTimeStamp;
+    //   }
+    //   window.requestAnimationFrame(this.startTest);
+    // },
     startTest() {
       if(!this.randTimeUnder5s) { //When countdown ended
         this.randTimeUnder5s = Math.random() * 7 + 0.2; 
